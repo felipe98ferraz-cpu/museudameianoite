@@ -169,6 +169,7 @@ if (location.hash === "#colecao") {
   const openStudy = document.querySelector("#open-study");
   const studyReading = study.querySelector(".study-reading");
   const panel = document.querySelector("#dossier-body");
+  const dossierScroll = dossier.querySelector(".dossier-scroll");
   const start = document.querySelector("#start-case");
   const reset = document.querySelector("#reset-case");
   const count = document.querySelector("#case-count");
@@ -255,9 +256,20 @@ if (location.hash === "#colecao") {
       activePanel = dialog;
     }
     stage.dataset.panel = dialog.id;
-    if (!dialog.open) dialog.show();
-    if (narrow.matches) frame.scrollIntoView({ block: "start", behavior: "instant" });
+    if (!dialog.open) {
+      if (dialog === dossier && narrow.matches) dialog.showModal();
+      else dialog.show();
+    }
+    if (dialog === study && narrow.matches) frame.scrollIntoView({ block: "start", behavior: "instant" });
   }
+
+  narrow.addEventListener("change", () => {
+    if (activePanel !== dossier) return;
+    const focused = document.activeElement;
+    dossier.close();
+    showPanel(dossier);
+    if (dossier.contains(focused)) focused.focus();
+  });
 
   function closePanel() {
     if (!activePanel) return;
@@ -284,6 +296,7 @@ if (location.hash === "#colecao") {
     render();
     showPanel(dossier);
     dossier.scrollTop = 0;
+    dossierScroll.scrollTop = 0;
     (panel.querySelector("h3") ?? panel.querySelector("button"))?.focus({ preventScroll: true });
   }
 

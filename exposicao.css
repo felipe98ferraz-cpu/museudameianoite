@@ -40,7 +40,29 @@
     margin-inline: auto;
   }
   .investigation .dock-panel[open].study-dialog { max-height: min(50dvh, 540px); }
-  .investigation[data-panel] .case-layout { padding-bottom: max(24px, 46dvh); }
+  .investigation[data-panel="study-dialog"] .case-layout { padding-bottom: max(24px, 46dvh); }
+  .investigation .dock-panel[open].case-dossier {
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  body:has(.case-dossier[open]),
+  .investigation:is(:fullscreen, .is-expanded):has(.case-dossier[open]) { overflow: hidden; }
+  .case-dossier .dossier-top { flex: none; }
+  .case-dossier .dossier-close { width: 44px; height: 44px; }
+  .case-dossier .dossier-scroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
   .study-reading { padding-top: 20px; }
   .study-portrait img { width: 78px; height: 92px; }
 }
