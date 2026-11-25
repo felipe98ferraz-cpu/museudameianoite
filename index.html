@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d0b">
+  <meta name="description" content="Investigue dez detalhes e explore um caderno de estudo sobre O Casal Arnolfini, de Jan van Eyck, no Museu da Meia-Noite.">
+  <title>O Casal Arnolfini — Museu da Meia-Noite</title>
+  <link rel="icon" type="image/webp" href="assets/logo-museu.webp">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="arnolfini.css">
+  <link rel="stylesheet" href="estudo.css">
+  <link rel="stylesheet" href="exposicao.css">
+  <script type="module" src="./arnolfini.js"></script>
+</head>
+<body>
+  <svg class="parchment-filter" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="parchment-matte" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        2.34 7.87 0.79 0 -1.21" result="paper-mask"/>
+      <feComposite in="SourceGraphic" in2="paper-mask" operator="in"/>
+    </filter>
+  </svg>
+  <a class="skip-link" href="#case-title">Pular para o quadro</a>
+  <main class="investigation" id="obra-arnolfini" aria-labelledby="case-title">
+    <header class="case-bar">
+      <div class="brand">
+        <img src="assets/logo-museu.webp" width="42" height="42" alt="">
+        <span>Museu da<br>Meia-Noite</span>
+      </div>
+      <div class="case-bar-actions">
+        <a class="collection-nav" href="https://museu-da-meia-noite.fabulousash4.chatgpt.site/colecao">Coleção</a>
+        <button class="fullscreen-button" id="fullscreen-button" type="button" aria-pressed="false">
+          <span class="fullscreen-icon" aria-hidden="true"></span><span id="fullscreen-label">Tela cheia</span>
+        </button>
+      </div>
+    </header>
+    <div class="case-layout">
+      <figure class="case-art" id="exhibit-art">
+        <figcaption class="case-plaque">
+          <h1 id="case-title" tabindex="-1">O Casal Arnolfini</h1>
+          <p id="case-meta">Jan van Eyck <span>·</span> 1434 <span>·</span> Renascimento do Norte</p>
+          <p id="case-sample" class="case-sample">Investigue 10 pistas em <em>O Casal Arnolfini</em>. Este caso é gratuito.</p>
+        </figcaption>
+        <div class="case-exhibit">
+          <div class="case-frame">
+            <div class="case-image">
+              <img id="case-painting" src="assets/arnolfini.webp" width="1404" height="1920" alt="Um homem e uma mulher de mãos dadas, entre a janela e uma cama vermelha. Um espelho convexo pende na parede ao fundo." fetchpriority="high">
+              <div class="case-pins" id="case-pins" role="group" aria-label="Pistas na pintura" hidden></div>
+            </div>
+          </div>
+          <button class="study-plaque" id="open-study" type="button" aria-controls="study-dialog" aria-haspopup="dialog">
+            <span class="plaque-artist">Jan van Eyck</span>
+            <em>O Casal Arnolfini</em>
+            <span class="plaque-date">1434</span>
+            <span class="plaque-medium">Óleo sobre carvalho</span>
+            <span class="study-plaque-action"><span id="plaque-action">Abrir caderno de estudo</span><span aria-hidden="true">+</span></span>
+          </button>
+        </div>
+      </figure>
+      <div class="case-controls" aria-label="Controles da investigação">
+        <button class="case-primary" id="start-case" type="button" aria-controls="case-pins" aria-expanded="false">Iniciar investigação</button>
+        <button class="case-secondary" id="open-dossier" type="button" aria-controls="case-dossier" aria-haspopup="dialog">Caderno de pistas</button>
+      </div>
+      <section class="investigator-guide" id="investigator-guide" aria-labelledby="investigator-title">
+        <h2 id="investigator-title">Os selos do investigador</h2>
+        <dl>
+          <div><dt class="investigator-seal" data-seal="fact">Fato</dt><dd>Pode ser verificado na obra, em documentos ou em exames técnicos.</dd></div>
+          <div><dt class="investigator-seal" data-seal="consensus">Consenso comum</dt><dd>É uma leitura amplamente aceita por especialistas, apoiada por evidências e pelo contexto histórico.</dd></div>
+          <div><dt class="investigator-seal" data-seal="hypothesis">Hipótese</dt><dd>É uma leitura proposta por um pesquisador. Os indícios permitem outras interpretações.</dd></div>
+        </dl>
+      </section>
+    </div>
+
+    <dialog class="case-dossier dock-panel" id="case-dossier" aria-labelledby="dossier-title">
+      <div class="dossier-top">
+        <form method="dialog"><button class="dossier-close" id="close-dossier" aria-label="Fechar caderno de pistas">×</button></form>
+        <h2 id="dossier-title">Caderno de pistas</h2>
+        <div class="case-tally">
+          <span id="case-count" role="status">0 de 10 resolvidas</span>
+          <span id="case-score">0 pts</span>
+        </div>
+        <div class="case-progress" id="case-progress" role="progressbar" aria-label="Pistas resolvidas" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"></div>
+      </div>
+      <div class="dossier-body" id="dossier-body"></div>
+      <div class="dossier-bottom">
+        <a href="https://www.nationalgallery.org.uk/paintings/jan-van-eyck-the-arnolfini-portrait" target="_blank" rel="noopener">Ficha da obra</a>
+        <button type="button" id="reset-case" hidden>Reiniciar</button>
+      </div>
+    </dialog>
+
+    <dialog class="study-dialog dock-panel" id="study-dialog" aria-labelledby="study-title">
+      <form class="study-dismiss" method="dialog"><button class="study-close" type="submit" aria-label="Fechar caderno de estudo" autofocus>×</button></form>
+      <article class="study-reading" tabindex="0">
+        <header class="study-header">
+          <figure class="study-portrait">
+            <img src="assets/detalhe-retrato.webp" width="340" height="420" alt="Detalhe do rosto e do véu da mulher retratada por Jan van Eyck." loading="lazy">
+            <figcaption>Detalhe de <cite>O Casal Arnolfini</cite></figcaption>
+          </figure>
+          <h2 id="study-title">O Casal Arnolfini</h2>
+          <p class="study-subtitle">Caderno de estudo · Jan van Eyck · 1434</p>
+          <div class="study-divider" aria-hidden="true"><span>❦</span></div>
+          <dl class="study-facts">
+            <div><dt>Artista</dt><dd>Jan van Eyck</dd></div>
+            <div><dt>Data</dt><dd>1434</dd></div>
+            <div><dt>Técnica</dt><dd>Óleo sobre carvalho</dd></div>
+            <div><dt>Acervo</dt><dd>National Gallery, Londres</dd></div>
+          </dl>
+        </header>
+
+        <div class="study-content">
+          <section>
+            <h3>Como usar a sala</h3>
+            <p>Observe a pintura inteira antes de clicar em <strong>Iniciar investigação</strong>. Os dez círculos abrem perguntas com um detalhe ampliado. Você pode escolher a ordem das nove primeiras pistas e voltar ao quadro a qualquer momento. O espelho abre por último.</p>
+            <p>Uma resposta certa de primeira, sem dica, vale 100 pontos. Com uma dica ou uma tentativa anterior, vale 60. O navegador guarda seu progresso.</p>
+          </section>
+          <section>
+            <h3>A época da obra</h3>
+            <p>O retrato pertence à pintura dos <strong>Países Baixos do século XV</strong>, associada ao Renascimento do Norte. Nos territórios borgonheses, pintores usavam camadas finas de tinta a óleo para distinguir reflexos, tecidos e superfícies. Retratos, retábulos e imagens para devoção privada circulavam entre cortes, igrejas e famílias de mercadores.</p>
+            <p>O ateliê de <strong>Robert Campin</strong> levou cenas religiosas a interiores domésticos, como no <em>Tríptico de Mérode</em>. <strong>Rogier van der Weyden</strong> se destacou pelos gestos e expressões. Mais tarde, <strong>Petrus Christus</strong> explorou como objetos e interiores podiam ajudar a caracterizar as pessoas retratadas.</p>
+            <p class="study-source"><a href="https://www.metmuseum.org/essays/early-netherlandish-painting" target="_blank" rel="noopener">Leia sobre a pintura dos Países Baixos no Metropolitan Museum of Art</a></p>
+          </section>
+          <section>
+            <h3>Quem foi Jan van Eyck?</h3>
+            <p>A data de nascimento é incerta. Seu trabalho está documentado a partir de 1422. Em 1425, entrou a serviço de Filipe, o Bom, duque da Borgonha, e viajou a Portugal para retratar Isabel, futura esposa do duque. Estabeleceu-se em Bruges, completou o <em>Retábulo de Gante</em> iniciado por seu irmão Hubert e morreu em 1441.</p>
+            <p>Van Eyck explorou a transparência do óleo para fazer a luz parecer refletir no metal, atravessar contas de âmbar e tocar os pelos do cão. Compare esses efeitos na pintura e repare como cada material devolve a luz de um jeito.</p>
+            <p class="study-source"><a href="https://www.nationalgallery.org.uk/artists/jan-van-eyck" target="_blank" rel="noopener">Leia a biografia do pintor na National Gallery</a></p>
+          </section>
+          <section>
+            <h3>Bruges e o casal</h3>
+            <p>Bruges era um centro comercial que atraía mercadores estrangeiros. A National Gallery considera provável que o homem seja Giovanni di Nicolao di Arnolfini, de uma família italiana de mercadores. A identidade da mulher permanece incerta. Os tecidos, os móveis e o cuidado com a aparência ajudam a entender como uma família abastada podia se apresentar.</p>
+            <p>O gesto das mãos já foi interpretado como parte de um casamento. A cena admite outras leituras, e a finalidade original do retrato continua em debate.</p>
+          </section>
+          <section>
+            <h3>O caminho do quadro</h3>
+            <p>Van Eyck assinou e datou a obra de 1434 na própria parede pintada. Um inventário de 1516 registra o painel na coleção de Margarida da Áustria. A obra passou a Maria da Hungria e depois à coleção real espanhola. No século XIX, estava com James Hay. A National Gallery comprou o retrato em 1842.</p>
+            <p>Exames com infravermelho registraram mudanças feitas pelo pintor durante o trabalho. Alguns dos objetos mais comentados entraram em uma etapa posterior, o que ajuda a entender como a cena foi construída.</p>
+            <p class="study-source"><a href="https://www.nationalgallery.org.uk/paintings/catalogues/campbell-1998/the-arnolfini-portrait" target="_blank" rel="noopener">Consulte o catálogo técnico da National Gallery</a></p>
+          </section>
+          <section>
+            <h3>Por onde começar a olhar</h3>
+            <ol>
+              <li><strong>Siga a luz.</strong> Parta da janela e procure o mesmo brilho no lustre, nas contas e na madeira.</li>
+              <li><strong>Compare as mãos.</strong> Veja como o homem usa cada mão e como o tecido verde responde ao gesto da mulher.</li>
+              <li><strong>Percorra as bordas.</strong> Observe o que ficou junto à janela e no chão. Depois compare os dois lados do aposento.</li>
+              <li><strong>Volte ao centro.</strong> Compare a cena com o que o espelho devolve. Pergunte de onde você precisaria olhar para ver aquele reflexo.</li>
+            </ol>
+            <p>Ao interpretar um detalhe, descreva primeiro o que você vê e só então formule uma hipótese sobre seu significado.</p>
+            <p class="study-source"><a href="https://www.nationalgallery.org.uk/audio/audio-descriptions/jan-van-eyck-s-the-arnolfini-portrait" target="_blank" rel="noopener">Consulte a descrição detalhada da pintura na National Gallery</a></p>
+          </section>
+        </div>
+      </article>
+      <footer class="study-footer">
+        <form method="dialog"><button type="submit">Voltar à exposição</button></form>
+      </footer>
+    </dialog>
+  </main>
+  <footer class="museum-footer">
+    <p>© Museu da Meia-Noite · Toda obra esconde seus segredos.</p>
+    <p>Imagens das obras em domínio público.</p>
+  </footer>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5fdf9855dc8df22',t:'MTc5NTU4MTYyMA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5fdf9855dc8df22',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

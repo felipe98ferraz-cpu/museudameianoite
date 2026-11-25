@@ -1,0 +1,198 @@
+.case-exhibit {
+  position: relative;
+  --plaque-width: clamp(152px, 14.5vw, 210px);
+  --plaque-gap: clamp(12px, 2vw, 30px);
+  --frame-size: clamp(16px, 3.7svh, 42px);
+  --frame-width: calc(clamp(255px, 100svh - 403px, 870px) * var(--art-ratio, .73125) + 2 * var(--frame-size));
+  width: min(100%, var(--frame-width), calc(100% - 2 * (var(--plaque-width) + var(--plaque-gap))));
+}
+
+.investigation .study-plaque {
+  position: absolute;
+  left: calc(100% + var(--plaque-gap));
+  top: 57%;
+  display: grid;
+  gap: .13rem;
+  width: var(--plaque-width);
+  padding: .86rem .92rem;
+  border: 1px solid #b5976f;
+  box-shadow: 0 8px 20px #0008;
+  background: linear-gradient(120deg, #f4e5cf, #e5d8c1);
+  color: #342a23;
+  text-align: left;
+}
+.investigation .study-plaque:hover { background: #fff0d8; }
+.plaque-artist, .plaque-date, .study-plaque-action, .study-subtitle, .study-facts dt, .study-footer button {
+  font-family: var(--text);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.plaque-artist {
+  padding-bottom: .32rem;
+  border-bottom: 1px solid #bdaa8c;
+  font-size: .71rem;
+  font-weight: 700;
+}
+.study-plaque em { padding-top: .12rem; font: italic 500 1.5rem/1.12 var(--display); }
+.plaque-date { margin-top: .18rem; font-size: .75rem; font-weight: 600; }
+.plaque-medium { color: #5f5042; font-size: .75rem; }
+.study-plaque-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .35rem;
+  margin-top: .23rem;
+  padding-top: .36rem;
+  border-top: 1px solid #bdaa8c;
+  font-size: .63rem;
+  font-weight: 700;
+  letter-spacing: .075em;
+}
+
+.study-dialog {
+  --study-paper: #f1eeea;
+  --study-ink: #322d28;
+  --study-rule: #c0a77f;
+  width: min(608px, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 15px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 7px;
+  background: var(--study-paper);
+  color: var(--study-ink);
+  box-shadow: 0 24px 80px #0009;
+}
+.study-dialog::before {
+  position: absolute;
+  z-index: 2;
+  inset: 14px;
+  content: "";
+  border: 1px solid #bea580;
+  outline: 1px solid #d5c5ae;
+  outline-offset: 3px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+.study-dialog::backdrop { background: #181512a8; }
+.study-dialog[open] {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  transform-origin: 88% 55%;
+  animation: study-open .23s ease-out both;
+}
+@keyframes study-open {
+  from { opacity: 0; transform: scale(.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.study-dismiss { position: absolute; z-index: 3; top: 19px; right: 20px; }
+.study-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: var(--study-paper);
+  color: #514940;
+  font: 400 1.55rem/1 var(--text);
+}
+.study-close:hover { background: #e6ddd1; }
+.study-dialog :focus-visible { outline-color: #765a35; }
+.study-reading {
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(28px, 5vw, 38px) clamp(18px, 5vw, 42px) 12px;
+  scrollbar-color: #b6a387 var(--study-paper);
+}
+.study-header { text-align: center; }
+.study-portrait img {
+  width: 160px;
+  height: 191px;
+  margin-inline: auto;
+  border: 1px solid #c7b394;
+  border-radius: 90px 90px 3px 3px;
+  object-fit: cover;
+  object-position: 50% 42%;
+  box-shadow: 0 12px 27px #44312038;
+  filter: saturate(.63);
+}
+.study-portrait figcaption { margin-top: .46rem; color: #665c53; font-size: .75rem; }
+.study-portrait cite { font-style: normal; }
+.study-header h2 {
+  margin: 1.2rem 0 .45rem;
+  font: 600 clamp(1.5rem, 5vw, 2.18rem)/1.05 var(--display);
+  letter-spacing: .155em;
+  text-transform: uppercase;
+}
+.study-subtitle { color: #5d554c; font-size: .72rem; line-height: 1.55; }
+.study-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .9rem;
+  margin: 1.25rem 0;
+  color: #896434;
+  font: 1.15rem/1 Georgia, serif;
+}
+.study-divider::before, .study-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--study-rule));
+}
+.study-divider::after { transform: rotate(180deg); }
+.study-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .55rem .85rem;
+  margin: 0;
+  padding-bottom: .9rem;
+  border-bottom: 1px solid #cdc0ac;
+  text-align: left;
+}
+.study-facts dt { color: #625343; font-size: .63rem; font-weight: 700; }
+.study-facts dd { margin: .14rem 0 0; font: 600 1rem/1.15 var(--display); }
+.study-content {
+  font: 500 clamp(1.12rem, 3vw, 1.28rem)/1.52 var(--display);
+}
+.study-content section { padding: 1rem 0; }
+.study-content section + section { border-top: 1px solid #cdc0ac; }
+.study-content h3 { font: 600 clamp(1.34rem, 4vw, 1.8rem)/1.05 var(--display); margin-bottom: .52rem; }
+.study-content p:not(.study-source) { text-align: justify; hyphens: auto; }
+.study-content p + p, .study-content ol + p { margin-top: .55rem; }
+.study-content ol { margin: .4rem 0; padding-left: 1.25rem; }
+.study-content li + li { margin-top: .3rem; }
+.study-source { font: .78rem/1.45 var(--text); color: #674d32; }
+.study-source a { text-underline-offset: 3px; }
+.study-footer {
+  position: relative;
+  padding: .8rem clamp(18px, 5vw, 42px) 1.1rem;
+  border-top: 1px solid #d7c9b5;
+  background: #e9e4dd;
+}
+.study-footer button {
+  width: 100%;
+  min-height: 47px;
+  border: 1px solid #74624e;
+  background: #302a24;
+  color: #fff9f0;
+  font-size: .77rem;
+  font-weight: 700;
+}
+.study-footer button:hover { background: #483b30; }
+
+@media (max-width: 690px) {
+  .case-exhibit {
+    --frame-size: clamp(15px, 5.5vw, 25px);
+    --frame-width: calc(clamp(255px, 100svh - 463px, 870px) * var(--art-ratio, .73125) + 2 * var(--frame-size));
+    width: min(100%, var(--frame-width));
+  }
+  .investigation .study-plaque { position: relative; inset: auto; margin: .75rem auto 0; width: max-content; max-width: 100%; padding: .52rem .7rem; }
+  .study-plaque em { font-size: 1.23rem; }
+  .study-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .study-content p:not(.study-source) { text-align: left; }
+  .study-portrait img { width: 132px; height: 155px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .study-dialog[open] { animation: none; }
+}

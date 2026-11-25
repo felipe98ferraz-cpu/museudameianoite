@@ -1,0 +1,53 @@
+@font-face {
+  font-family: Cormorant;
+  src: url("assets/cormorant.woff2") format("woff2");
+  font-weight: 500 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: Cormorant;
+  src: url("assets/cormorant-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("assets/dm-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --paper: #f1e8d7;
+  --gold: #d9ae70;
+  --ground: #100d0b;
+  --line: #3a3025;
+  --display: Cormorant, Georgia, serif;
+  --text: "DM Sans", system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--paper); font: 1rem/1.55 var(--text); }
+a { color: inherit; }
+button { color: inherit; font: inherit; cursor: pointer; }
+img { display: block; max-width: 100%; }
+figure, h1, h2, h3, p { margin: 0; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.skip-link:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip-link:focus {
+  position: fixed;
+  top: .5rem;
+  left: .5rem;
+  z-index: 20;
+  padding: .5rem 1rem;
+  background: var(--ground);
+}
